@@ -10,8 +10,12 @@ export async function POST(request: Request) {
   try {
     await sendMail({ to, subject, body })
     return NextResponse.json({ success: true })
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('Mail send error:', err)
-    return NextResponse.json({ error: err.message }, { status: 500 })
+    const errorMessage =
+      err instanceof Error
+        ? err.message
+        : 'メール送信中に予期しないエラーが発生しました'
+    return NextResponse.json({ error: errorMessage }, { status: 500 })
   }
 }

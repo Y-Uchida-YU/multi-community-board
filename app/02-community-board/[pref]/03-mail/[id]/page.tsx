@@ -1,10 +1,10 @@
-// app/02-community-board/[pref]/03-mail/[id]/page.tsx
 'use client'
 
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../../../../lib/supabaseClient'
 
+// メールアドレスをマスクするユーティリティ関数
 function maskEmail(email: string): string {
   const [local, domain] = email.split('@')
   const maskedLocal = local.length > 1
@@ -21,14 +21,13 @@ export default function MailPage() {
   const postId = Number(id)
   const router = useRouter()
 
-  // ① 表示用マスク、② 送信用実メール
   const [maskedEmail, setMaskedEmail] = useState('Loading...')
-  const [realEmail, setRealEmail]     = useState('') 
+  const [realEmail, setRealEmail]     = useState('')
   const [subject, setSubject]         = useState('')
   const [body, setBody]               = useState('')
   const [errorMsg, setErrorMsg]       = useState('')
 
-  // 投稿からメール取得し、maskedEmail と realEmail にセット
+  // 投稿データからメールアドレスを取得し、表示用/送信用にセット
   useEffect(() => {
     supabase
       .from('TBL_T_POSTS')
@@ -39,8 +38,8 @@ export default function MailPage() {
         if (error || !data?.email) {
           setMaskedEmail('不明')
         } else {
-          setRealEmail(data.email)               // 実際の送信用
-          setMaskedEmail(maskEmail(data.email))  // UI 表示用
+          setRealEmail(data.email)
+          setMaskedEmail(maskEmail(data.email))
         }
       })
   }, [postId])
@@ -48,27 +47,29 @@ export default function MailPage() {
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault()
     setErrorMsg('')
+
     if (!subject.trim() || !body.trim()) {
       setErrorMsg('件名と本文は必須です')
       return
     }
+
     try {
       const res = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to: realEmail,   // 送信用は実メール
-          subject,
-          body
-        })
+        body: JSON.stringify({ to: realEmail, subject, body })
       })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error || '送信に失敗しました')
       alert('メールを送信しました')
       router.back()
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Mail send error', err)
-      setErrorMsg(err.message)
+      const message =
+        err instanceof Error
+          ? err.message
+          : '送信中に予期しないエラーが発生しました'
+      setErrorMsg(message)
     }
   }
 
