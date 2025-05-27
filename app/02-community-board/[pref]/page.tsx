@@ -7,11 +7,16 @@ import { supabase } from '../../../lib/supabaseClient'
 
 type Post = {
   id: number
+  prefecture: string
   name: string | null
   profile: string | null
   title: string
   content: string
+  delete_key: string
   insert_datetime: string
+  insert_program: string
+  update_datetime: string
+  update_program: string
 }
 
 export default function PostsListPage() {
@@ -22,17 +27,18 @@ export default function PostsListPage() {
 
   useEffect(() => {
     supabase
-      .from<Post>('TBL_T_POSTS')
+      .from('TBL_T_POSTS')          // ← ジェネリックを外しました
       .select('*')
       .eq('prefecture', decodedPref)
       .order('insert_datetime', { ascending: false })
-      .then(({ data }) => setPosts(data || []))
+      .then(({ data }) => {
+        setPosts(data ?? [])
+      })
   }, [decodedPref])
 
   return (
     <div className="max-w-4xl mx-auto py-8">
       <div className="bg-white shadow-lg rounded-xl p-8">
-        {/* 戻るボタン */}
         <button
           onClick={() => router.push('/01-choice-prefectures')}
           className="text-blue-500 hover:text-blue-700 mb-4 flex items-center"
@@ -86,7 +92,9 @@ export default function PostsListPage() {
                 </div>
 
                 {post.profile && (
-                  <p className="italic text-gray-700 mb-4">プロフィール: {post.profile}</p>
+                  <p className="italic text-gray-700 mb-4">
+                    プロフィール: {post.profile}
+                  </p>
                 )}
 
                 <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
@@ -94,9 +102,7 @@ export default function PostsListPage() {
                 <div className="mt-4 flex justify-end">
                   <button
                     onClick={() =>
-                      router.push(
-                        `/02-community-board/${pref}/02-delete/${post.id}`
-                      )
+                      router.push(`/02-community-board/${pref}/02-delete/${post.id}`)
                     }
                     className="px-4 py-1 bg-red-500 hover:bg-red-600 text-white rounded-lg"
                   >
