@@ -8,29 +8,30 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
       <head>
-        {/* Google AdSense ライブラリ（テスト用クライアントID） */}
+        {/* AdSense ライブラリを head で一度だけロード */}
         <Script
           id="adsense-init"
           strategy="afterInteractive"
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          data-ad-client="ca-pub-3940256099942544"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5397248117043431"
+          crossOrigin="anonymous"
         />
       </head>
       <body className="bg-blue-50 min-h-screen">
         <div className="flex h-full">
-          {/* 左サイド広告 */}
+          {/* 左サイドバー広告 */}
           <aside className="hidden xl:flex w-60 p-4">
-            <div className="w-full h-full bg-white rounded-lg shadow flex items-center justify-center">
+            <div className="w-full h-full flex items-center justify-center">
+              {/* 左サイドバー01 */}
               <ins
                 className="adsbygoogle block"
-                style={{ display: 'inline-block', width: 160, height: 600 }}
-                data-ad-client="ca-pub-3940256099942544"
-                data-ad-slot="6300978111"
+                style={{ display: 'block' }}
+                data-ad-client="ca-pub-5397248117043431"
+                data-ad-slot="4769825920"
                 data-ad-format="auto"
-                data-full-width-responsive="false"
+                data-full-width-responsive="true"
               />
-              <Script id="adsense-left" strategy="afterInteractive">
+              <Script id="ads-left" strategy="afterInteractive">
                 {`(adsbygoogle = window.adsbygoogle || []).push({});`}
               </Script>
             </div>
@@ -39,18 +40,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {/* メインコンテンツ */}
           <main className="flex-1 p-6">{children}</main>
 
-          {/* 右サイド広告 */}
+          {/* 右サイドバー広告 */}
           <aside className="hidden xl:flex w-60 p-4">
-            <div className="w-full h-full bg-white rounded-lg shadow flex items-center justify-center">
+            <div className="w-full h-full flex items-center justify-center">
+              {/* 右サイドバー用01 */}
               <ins
                 className="adsbygoogle block"
-                style={{ display: 'inline-block', width: 160, height: 600 }}
-                data-ad-client="ca-pub-3940256099942544"
-                data-ad-slot="6300978111"
+                style={{ display: 'block' }}
+                data-ad-client="ca-pub-5397248117043431"
+                data-ad-slot="6849803164"
                 data-ad-format="auto"
-                data-full-width-responsive="false"
+                data-full-width-responsive="true"
               />
-              <Script id="adsense-right" strategy="afterInteractive">
+              <Script id="ads-right" strategy="afterInteractive">
                 {`(adsbygoogle = window.adsbygoogle || []).push({});`}
               </Script>
             </div>
