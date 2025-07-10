@@ -47,44 +47,62 @@ export default function NewPostPage() {
         「{decodedPref}」に新規投稿
       </h1>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <label htmlFor='name' className='block mb-1 font-medium'>
+          名前(必須)
+        </label>
         <input
           type="text"
-          placeholder="名前（省略可）"
+          placeholder="山田 太郎"
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="w-full p-2 border rounded"
         />
+        <label htmlFor='email' className='block mb-1 font-medium'>
+          メールアドレス(必須)
+        </label>
         <input
           type="email"
-          placeholder="メールアドレス（省略可）"
+          placeholder="boysmatching@icloud.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full p-2 border rounded"
         />
+        <label htmlFor='email' className='block mb-1 font-medium'>
+          プロフィール(必須)
+        </label>
         <textarea
-          placeholder="プロフィール（省略可）"
+          placeholder="170cm 70kg 20歳 (P:16cm)"
           value={profile}
           onChange={(e) => setProfile(e.target.value)}
-          className="w-full p-2 border rounded h-16"
+          className="w-full p-2 border rounded"
         />
+        <label htmlFor='title' className='block mb-1 font-medium'>
+          題名(必須)
+        </label>
         <input
           type="text"
-          placeholder="題名 *"
+          placeholder="素敵な出会いを求めています。"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
           className="w-full p-2 border rounded"
         />
+        <label htmlFor='Post' className='block mb-1 font-medium'>
+          内容(必須)
+        </label>
         <textarea
-          placeholder="内容 *"
+          placeholder="〇〇区に住んでいる××です。素敵な出会いを求めて始めました、メールをお待ちしています。"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           required
           className="w-full p-2 border rounded h-24"
         />
+        <label htmlFor='email' className='block mb-1 font-medium'>
+          削除キー(必須)　※投稿の削除に必用なキー設定
+        </label>
         <input
           type="password"
-          placeholder="削除キー *"
+          placeholder="99999"
           value={deleteKey}
           onChange={(e) => setDeleteKey(e.target.value)}
           required

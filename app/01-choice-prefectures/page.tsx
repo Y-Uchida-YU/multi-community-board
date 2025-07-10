@@ -56,7 +56,7 @@ export default function ChoicePrefecturesPage() {
     <div className="max-w-4xl mx-auto">
       <div className="bg-white shadow-lg rounded-xl p-8">
         <h1 className="text-3xl font-bold text-blue-700 mb-8 text-center">
-          あなたの都道府県を選択してください
+          都道府県を選択してください
         </h1>
 
         {REGIONS.map(region => (
