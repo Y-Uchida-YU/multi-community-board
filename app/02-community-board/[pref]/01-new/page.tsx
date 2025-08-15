@@ -43,11 +43,11 @@ export default function NewPostPage() {
 
   return (
     <main className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-4">
+      <h1 className="text-2xl font-semibold mb-4 text-black">
         「{decodedPref}」に新規投稿
       </h1>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <label htmlFor='name' className='block mb-1 font-medium'>
+        <label htmlFor='name' className='block mb-1 font-medium text-black'>
           名前(必須)
         </label>
         <input
@@ -57,7 +57,7 @@ export default function NewPostPage() {
           onChange={(e) => setName(e.target.value)}
           className="w-full p-2 border rounded"
         />
-        <label htmlFor='email' className='block mb-1 font-medium'>
+        <label htmlFor='email' className='block mb-1 font-medium text-black'>
           メールアドレス(必須)
         </label>
         <input
@@ -67,7 +67,7 @@ export default function NewPostPage() {
           onChange={(e) => setEmail(e.target.value)}
           className="w-full p-2 border rounded"
         />
-        <label htmlFor='email' className='block mb-1 font-medium'>
+        <label htmlFor='email' className='block mb-1 font-medium text-black'>
           プロフィール(必須)
         </label>
         <textarea
@@ -76,7 +76,7 @@ export default function NewPostPage() {
           onChange={(e) => setProfile(e.target.value)}
           className="w-full p-2 border rounded"
         />
-        <label htmlFor='title' className='block mb-1 font-medium'>
+        <label htmlFor='title' className='block mb-1 font-medium text-black'>
           題名(必須)
         </label>
         <input
@@ -87,7 +87,7 @@ export default function NewPostPage() {
           required
           className="w-full p-2 border rounded"
         />
-        <label htmlFor='Post' className='block mb-1 font-medium'>
+        <label htmlFor='Post' className='block mb-1 font-medium text-black'>
           内容(必須)
         </label>
         <textarea
@@ -97,7 +97,7 @@ export default function NewPostPage() {
           required
           className="w-full p-2 border rounded h-24"
         />
-        <label htmlFor='email' className='block mb-1 font-medium'>
+        <label htmlFor='email' className='block mb-1 font-medium text-black'>
           削除キー(必須)　※投稿の削除に必用なキー設定
         </label>
         <input
