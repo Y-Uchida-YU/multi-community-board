@@ -14,6 +14,9 @@ export default function NewPostPage() {
   const [profile, setProfile] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [lineId, setLineId] = useState('');
+  const [kakaoId, setKakaoId] = useState('');
+  const [free, setFree] = useState('');
   const [deleteKey, setDeleteKey] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,6 +34,9 @@ export default function NewPostPage() {
         profile: profile || null,
         title,
         content,
+        line_id: lineId || null,
+        kakao_id: kakaoId || null,
+        free: free || null,
         delete_key: deleteKey,
         insert_program: 'frontend',
       });
@@ -95,6 +101,35 @@ export default function NewPostPage() {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           required
+          className="w-full p-2 border rounded h-24"
+        />
+        <label htmlFor='lineId' className='block mb-1 font-medium text-black'>
+          LINE ID
+        </label>
+        <input
+          type="text"
+          placeholder="line123"
+          value={lineId}
+          onChange={(e) => setLineId(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+        <label htmlFor='kakaoId' className='block mb-1 font-medium text-black'>
+          Kakao ID
+        </label>
+        <input
+          type="text"
+          placeholder="kakao123"
+          value={kakaoId}
+          onChange={(e) => setKakaoId(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+        <label htmlFor='free' className='block mb-1 font-medium text-black'>
+          フリーテキスト
+        </label>
+        <textarea
+          placeholder="自由にご記入ください"
+          value={free}
+          onChange={(e) => setFree(e.target.value)}
           className="w-full p-2 border rounded h-24"
         />
         <label htmlFor='email' className='block mb-1 font-medium text-black'>
