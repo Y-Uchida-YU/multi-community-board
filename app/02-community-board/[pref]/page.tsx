@@ -12,6 +12,9 @@ type Post = {
   profile: string | null
   title: string
   content: string
+  line_id: string | null
+  kakao_id: string | null
+  free: string | null
   delete_key: string
   insert_datetime: string
   insert_program: string

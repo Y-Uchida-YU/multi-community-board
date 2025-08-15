@@ -11,6 +11,9 @@ type Post = {
   profile: string | null
   title: string
   content: string
+  line_id: string | null
+  kakao_id: string | null
+  free: string | null
   delete_key: string
   insert_datetime: string
   insert_program: string
@@ -59,7 +62,16 @@ export default function PostDetailPage() {
         {post.profile && (
           <p className="italic text-gray-700 mb-4">プロフィール: {post.profile}</p>
         )}
-        <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
+        <p className="text-gray-800 whitespace-pre-wrap mb-4">{post.content}</p>
+        {post.line_id && (
+          <p className="text-gray-800 mb-1">LINE ID: {post.line_id}</p>
+        )}
+        {post.kakao_id && (
+          <p className="text-gray-800 mb-1">Kakao ID: {post.kakao_id}</p>
+        )}
+        {post.free && (
+          <p className="text-gray-800 whitespace-pre-wrap">{post.free}</p>
+        )}
       </div>
     </div>
   )
