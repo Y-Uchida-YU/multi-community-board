@@ -4,11 +4,11 @@ import { NextResponse } from 'next/server'
 import { sendMail } from '../../../lib/mailClient'
 
 export async function POST(request: Request) {
-  const { to, subject, body } = await request.json()
-  console.log('[send-email]', { to, subject, body })
+  const { from, to, subject, body } = await request.json()
+  console.log('[send-email]', { from, to, subject, body })
 
   try {
-    await sendMail({ to, subject, body })
+    await sendMail({ from, to, subject, body })
     return NextResponse.json({ success: true })
   } catch (err: unknown) {
     console.error('Mail send error:', err)
