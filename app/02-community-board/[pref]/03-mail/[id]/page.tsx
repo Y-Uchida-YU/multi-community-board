@@ -16,13 +16,13 @@ function maskEmail(email: string): string {
 }
 
 export default function MailPage() {
-  const { pref, id } = useParams() as { pref: string; id: string }
-  const decodedPref = decodeURIComponent(pref)
+  const { id } = useParams() as { id: string }
   const postId = Number(id)
   const router = useRouter()
 
   const [maskedEmail, setMaskedEmail] = useState('Loading...')
   const [realEmail, setRealEmail]     = useState('')
+  const [fromEmail, setFromEmail]     = useState('')
   const [subject, setSubject]         = useState('')
   const [body, setBody]               = useState('')
   const [errorMsg, setErrorMsg]       = useState('')
@@ -48,6 +48,13 @@ export default function MailPage() {
     e.preventDefault()
     setErrorMsg('')
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (!emailRegex.test(fromEmail)) {
+      setErrorMsg('送信元のメールアドレスを正しく入力してください')
+      return
+    }
+
     if (!subject.trim() || !body.trim()) {
       setErrorMsg('件名と本文は必須です')
       return
@@ -57,7 +64,7 @@ export default function MailPage() {
       const res = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ to: realEmail, subject, body })
+        body: JSON.stringify({ from: fromEmail, to: realEmail, subject, body })
       })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error || '送信に失敗しました')
@@ -76,7 +83,7 @@ export default function MailPage() {
   return (
     <main className="p-6 max-w-md mx-auto bg-white shadow-lg rounded-xl">
       <h1 className="text-2xl font-semibold mb-4">
-        メール送信 （{decodedPref}）
+        メール送信
       </h1>
       <form onSubmit={handleSend} className="space-y-4">
         <div>
@@ -84,6 +91,20 @@ export default function MailPage() {
             宛先（匿名表示）
           </label>
           <p className="mt-1 text-gray-900">{maskedEmail}</p>
+        </div>
+
+        <div>
+          <label htmlFor="from" className="block text-sm font-medium text-gray-700">
+            あなたのメールアドレス *
+          </label>
+          <input
+            id="from"
+            type="email"
+            value={fromEmail}
+            onChange={(e) => { setFromEmail(e.target.value); setErrorMsg('') }}
+            className="mt-1 w-full p-2 border rounded"
+            required
+          />
         </div>
 
         <div>
