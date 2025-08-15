@@ -24,6 +24,7 @@ export default function PostsListPage() {
   const decodedPref = decodeURIComponent(pref)
   const router = useRouter()
   const [posts, setPosts] = useState<Post[]>([])
+  const [viewMode, setViewMode] = useState<'list' | 'tree'>('list')
 
   useEffect(() => {
     supabase
@@ -50,7 +51,27 @@ export default function PostsListPage() {
           {decodedPref} の掲示板
         </h1>
 
-        <div className="flex justify-end mb-6">
+        <div className="flex justify-end mb-6 space-x-2">
+          <button
+            onClick={() => setViewMode('list')}
+            className={`px-4 py-2 rounded-lg ${
+              viewMode === 'list'
+                ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            一覧表示
+          </button>
+          <button
+            onClick={() => setViewMode('tree')}
+            className={`px-4 py-2 rounded-lg ${
+              viewMode === 'tree'
+                ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            ツリー表示
+          </button>
           <button
             onClick={() => router.push(`/02-community-board/${pref}/01-new`)}
             className="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition"
@@ -64,7 +85,7 @@ export default function PostsListPage() {
             まだ投稿がありません。<br/>
             ぜひ最初の投稿をしてみましょう！
           </p>
-        ) : (
+        ) : viewMode === 'list' ? (
           <ul className="space-y-6">
             {posts.map((post) => (
               <li
@@ -109,6 +130,24 @@ export default function PostsListPage() {
                     削除
                   </button>
                 </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <ul className="space-y-4">
+            {posts.map((post) => (
+              <li
+                key={post.id}
+                className="border border-gray-200 rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition"
+              >
+                <button
+                  onClick={() =>
+                    router.push(`/02-community-board/${pref}/post/${post.id}`)
+                  }
+                  className="text-left w-full text-blue-800 hover:underline"
+                >
+                  {post.title}
+                </button>
               </li>
             ))}
           </ul>
