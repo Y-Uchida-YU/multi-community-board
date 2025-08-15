@@ -55,15 +55,23 @@ export default function ChoicePrefecturesPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="bg-white shadow-lg rounded-xl p-8">
-        <h1 className="text-3xl font-bold text-blue-700 mb-8 text-center">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-blue-700 mb-4">
+            Boys Matching
+          </h1>
+          <p className="text-lg text-gray-700">
+            当サイトはゲイの出会いを目的としています。皆様に素敵な出会いがありますように
+          </p>
+        </div>
+        <h2 className="text-3xl font-bold text-blue-700 mb-8 text-center">
           都道府県を選択してください
-        </h1>
+        </h2>
 
         {REGIONS.map(region => (
           <section key={region.name} className="mb-8">
-            <h2 className="text-2xl font-semibold text-blue-600 mb-4">
+            <h3 className="text-2xl font-semibold text-blue-600 mb-4">
               {region.name}
-            </h2>
+            </h3>
             <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
               {region.prefectures.map(pref => (
                 <li key={pref}>
