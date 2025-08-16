@@ -32,7 +32,7 @@ export default function DeletePostPage() {
   };
 
   return (
-    <main className="p-6 max-w-md mx-auto bg-white shadow-lg rounded-xl">
+    <main className="p-6 bg-white shadow-lg rounded-xl">
       <h1 className="text-2xl font-semibold mb-4">
         「{decodedPref}」の投稿削除
       </h1>

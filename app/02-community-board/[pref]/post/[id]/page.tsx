@@ -39,14 +39,14 @@ export default function PostDetailPage() {
 
   if (!post) {
     return (
-      <div className="max-w-4xl mx-auto py-8">
+      <div className="py-8">
         <div className="bg-white shadow-lg rounded-xl p-8 text-center">読み込み中...</div>
       </div>
     )
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-8">
+    <div className="py-8">
       <div className="bg-white shadow-lg rounded-xl p-8">
         <button
           onClick={() => router.push(`/02-community-board/${pref}`)}
