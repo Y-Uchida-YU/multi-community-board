@@ -81,7 +81,7 @@ export default function MailPage() {
   }
 
   return (
-    <main className="p-6 max-w-md mx-auto bg-white shadow-lg rounded-xl">
+    <div className="p-6">
       <h1 className="text-2xl font-semibold mb-4">
         メール送信
       </h1>
@@ -153,6 +153,6 @@ export default function MailPage() {
           </button>
         </div>
       </form>
-    </main>
-  )
+    </div>
+  );
 }

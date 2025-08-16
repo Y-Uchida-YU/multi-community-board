@@ -53,44 +53,42 @@ export default function ChoicePrefecturesPage() {
   const router = useRouter();
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="bg-white shadow-lg rounded-xl p-8">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-blue-700 mb-4">
-            Boys Matching
-          </h1>
-          <p className="text-lg text-gray-700">
-            当サイトはゲイの出会いを目的としています。皆様に素敵な出会いがありますように
-          </p>
-        </div>
-        <h2 className="text-3xl font-bold text-blue-700 mb-8 text-center">
-          都道府県を選択してください
-        </h2>
-
-        {REGIONS.map(region => (
-          <section key={region.name} className="mb-8">
-            <h3 className="text-2xl font-semibold text-blue-600 mb-4">
-              {region.name}
-            </h3>
-            <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-              {region.prefectures.map(pref => (
-                <li key={pref}>
-                  <button
-                    onClick={() =>
-                      router.push(
-                        `/02-community-board/${encodeURIComponent(pref)}`
-                      )
-                    }
-                    className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition"
-                  >
-                    {pref}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+    <>
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold text-blue-700 mb-4">
+          Boys Matching
+        </h1>
+        <p className="text-lg text-gray-700">
+          当サイトはゲイの出会いを目的としています。皆様に素敵な出会いがありますように
+        </p>
       </div>
-    </div>
+      <h2 className="text-3xl font-bold text-blue-700 mb-8 text-center">
+        都道府県を選択してください
+      </h2>
+
+      {REGIONS.map(region => (
+        <section key={region.name} className="mb-8">
+          <h3 className="text-2xl font-semibold text-blue-600 mb-4">
+            {region.name}
+          </h3>
+          <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+            {region.prefectures.map(pref => (
+              <li key={pref}>
+                <button
+                  onClick={() =>
+                    router.push(
+                      `/02-community-board/${encodeURIComponent(pref)}`
+                    )
+                  }
+                  className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition"
+                >
+                  {pref}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </>
   );
 }
