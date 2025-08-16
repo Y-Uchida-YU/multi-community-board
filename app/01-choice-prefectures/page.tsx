@@ -53,7 +53,7 @@ export default function ChoicePrefecturesPage() {
   const router = useRouter();
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       <div className="bg-white shadow-lg rounded-xl p-8">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-blue-700 mb-4">

@@ -48,7 +48,7 @@ export default function NewPostPage() {
   };
 
   return (
-    <main className="p-6 max-w-xl mx-auto">
+    <div className="p-6">
       <h1 className="text-2xl font-semibold mb-4 text-black">
         「{decodedPref}」に新規投稿
       </h1>
@@ -159,6 +159,6 @@ export default function NewPostPage() {
           </button>
         </div>
       </form>
-    </main>
+    </div>
   );
 }
