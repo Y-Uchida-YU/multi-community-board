@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { ADS, Ad } from '../data/ads'
 
 type Props = {
-  region: 'left' | 'right'
+  region: 'left' | 'right' | 'inline'
   tagFilter?: string[]  // タグで絞り込みたい場合
 }
 
@@ -24,14 +24,17 @@ export default function AdBanner({ region, tagFilter }: Props) {
 
   if (!ad) return null
 
+  const { width, height } =
+    region === 'inline' ? { width: 300, height: 250 } : { width: 160, height: 600 }
+
   return (
     <Link href={ad.href} target="_blank" rel="noopener noreferrer">
-      <div className="w-full h-full overflow-hidden rounded-lg shadow hover:opacity-90 transition">
+      <div className="w-full h-full overflow-hidden rounded-lg shadow hover:opacity-90 transition flex justify-center">
         <Image
           src={ad.imageUrl}
           alt={ad.alt}
-          width={300}
-          height={600}
+          width={width}
+          height={height}
           className="object-cover w-full h-full"
         />
       </div>
