@@ -4,6 +4,7 @@
 import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../../lib/supabaseClient'
+import AdBanner from '../../../components/AdBanner'
 
 type Post = {
   id: number
@@ -42,7 +43,7 @@ export default function PostsListPage() {
 
   return (
     <div className="py-8">
-      <div className="bg-white shadow-lg rounded-xl p-8">
+      <div className="bg-white shadow-lg rounded-xl p-4 sm:p-8">
         <button
           onClick={() => router.push('/01-choice-prefectures')}
           className="text-blue-500 hover:text-blue-700 mb-4 flex items-center"
@@ -90,76 +91,100 @@ export default function PostsListPage() {
           </p>
         ) : viewMode === 'list' ? (
           <ul className="space-y-6">
-            {posts.map((post) => (
-              <li
-                key={post.id}
-                className="border border-gray-200 rounded-lg p-6 bg-gray-50 hover:bg-gray-100 transition"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <h2 className="text-xl font-semibold text-blue-800">
-                    {post.title}
-                  </h2>
-                  <button
-                    onClick={() =>
-                      router.push(`/02-community-board/${pref}/03-mail/${post.id}`)
-                    }
-                    className="flex items-center px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full text-sm"
-                    aria-label="メール送信"
-                  >
-                    <span className="mr-1">📧</span>
-                    <span>メールする</span>
-                  </button>
-                </div>
+            {posts.flatMap((post, index) => {
+              const items = [
+                <li
+                  key={post.id}
+                  className="border border-gray-200 rounded-lg p-6 bg-gray-50 hover:bg-gray-100 transition"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <h2 className="text-xl font-semibold text-blue-800">
+                      {post.title}
+                    </h2>
+                    <button
+                      onClick={() =>
+                        router.push(`/02-community-board/${pref}/03-mail/${post.id}`)
+                      }
+                      className="flex items-center px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full text-sm"
+                      aria-label="メール送信"
+                    >
+                      <span className="mr-1">📧</span>
+                      <span>メールする</span>
+                    </button>
+                  </div>
 
-                <div className="text-sm text-gray-600 mb-4">
-                  {post.name || '匿名'} &middot;{' '}
-                  {new Date(post.insert_datetime).toLocaleString()}
-                </div>
+                  <div className="text-sm text-gray-600 mb-4">
+                    {post.name || '匿名'} &middot;{' '}
+                    {new Date(post.insert_datetime).toLocaleString()}
+                  </div>
 
-                {post.profile && (
-                  <p className="italic text-gray-700 mb-4">
-                    プロフィール: {post.profile}
-                  </p>
-                )}
+                  {post.profile && (
+                    <p className="italic text-gray-700 mb-4">
+                      プロフィール: {post.profile}
+                    </p>
+                  )}
 
-                <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
+                  <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
 
-                <div className="mt-4 flex justify-end">
-                  <button
-                    onClick={() =>
-                      router.push(`/02-community-board/${pref}/02-delete/${post.id}`)
-                    }
-                    className="px-4 py-1 bg-red-500 hover:bg-red-600 text-white rounded-lg"
-                  >
-                    削除
-                  </button>
-                </div>
-              </li>
-            ))}
+                  <div className="mt-4 flex justify-end">
+                    <button
+                      onClick={() =>
+                        router.push(`/02-community-board/${pref}/02-delete/${post.id}`)
+                      }
+                      className="px-4 py-1 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+                    >
+                      削除
+                    </button>
+                  </div>
+                </li>,
+              ]
+
+              if ((index + 1) % 5 === 0) {
+                items.push(
+                  <li key={`ad-${index}`} className="lg:hidden my-4">
+                    <AdBanner region="inline" />
+                  </li>
+                )
+              }
+
+              return items
+            })}
           </ul>
         ) : (
           <ul className="space-y-4">
-            {posts.map((post) => (
-              <li
-                key={post.id}
-                className="border border-gray-200 rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition"
-              >
-                <button
-                  onClick={() =>
-                    router.push(`/02-community-board/${pref}/post/${post.id}`)
-                  }
-                  className="w-full flex justify-between items-start hover:underline text-left"
+            {posts.flatMap((post, index) => {
+              const items = [
+                <li
+                  key={post.id}
+                  className="border border-gray-200 rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition"
                 >
-                  <span className="text-blue-800">{post.title}</span>
-                  <span className="ml-4 text-sm text-gray-600 text-right">
-                    {post.name || '匿名'}
-                    {post.profile ? ` (${post.profile})` : ''}
-                    <br />
-                    {new Date(post.insert_datetime).toLocaleString()}
-                  </span>
-                </button>
-              </li>
-            ))}
+                  <button
+                    onClick={() =>
+                      router.push(`/02-community-board/${pref}/post/${post.id}`)
+                    }
+                    className="w-full flex justify-between items-start hover:underline text-left"
+                  >
+                    <span className="text-blue-800">{post.title}</span>
+                    <span className="ml-4 text-sm text-gray-600 text-right">
+                      {post.name || '匿名'}
+                      {post.profile ? ` (${post.profile})` : ''}
+                      <br />
+                      {new Date(post.insert_datetime).toLocaleString()}
+                    </span>
+                  </button>
+                </li>,
+              ]
+
+              if ((index + 1) % 5 === 0) {
+                items.push(
+                  <li key={`ad-${index}`} className="lg:hidden my-4">
+                    <AdBanner region="inline" />
+                  </li>
+                )
+              }
+
+              return items
+            })}
           </ul>
         )}
       </div>

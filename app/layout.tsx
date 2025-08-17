@@ -8,6 +8,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Google AdSense ライブラリを head で一度だけ読み込み */}
         <script
           async
@@ -16,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         ></script>
       </Head>
       <body className="bg-white min-h-screen">
-        <div className="flex h-full">
+        <div className="flex flex-col lg:flex-row h-full">
           {/* 左サイドバー広告 */}
           <aside className="hidden lg:block w-1/6 p-4 bg-white rounded shadow-sm">
             <div className="flex items-center justify-center w-full h-full">
@@ -37,8 +38,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </aside>
 
           {/* メインコンテンツ */}
-          <main className="flex-1 p-6 bg-white rounded shadow mx-4">
-            {children}</main>
+          <main className="w-full flex-1 p-4 sm:p-6 bg-white rounded shadow mx-2 sm:mx-4">
+            {children}
+          </main>
 
           {/* 右サイドバー広告 */}
           <aside className="hidden lg:block w-1/6 p-4 bg-white rounded shadow-sm">
