@@ -103,10 +103,11 @@ export default function PostsListPage() {
                     onClick={() =>
                       router.push(`/02-community-board/${pref}/03-mail/${post.id}`)
                     }
-                    className="text-blue-500 hover:text-blue-700 text-2xl"
+                    className="flex items-center px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full text-sm"
                     aria-label="メール送信"
                   >
-                    📧
+                    <span className="mr-1">📧</span>
+                    <span>メールする</span>
                   </button>
                 </div>
 
