@@ -29,17 +29,34 @@ export default function PostsListPage() {
   const router = useRouter()
   const [posts, setPosts] = useState<Post[]>([])
   const [viewMode, setViewMode] = useState<'list' | 'tree'>('list')
+  const [showSearch, setShowSearch] = useState(false)
+  const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
-    supabase
-      .from('TBL_T_POSTS')          // ← ジェネリックを外しました
+    let query = supabase
+      .from('TBL_T_POSTS') // ← ジェネリックを外しました
       .select('*')
       .eq('prefecture', decodedPref)
+
+    if (searchText) {
+      query = query.or(
+        `title.ilike.%${searchText}%,content.ilike.%${searchText}%`
+      )
+    }
+
+    query
       .order('insert_datetime', { ascending: false })
       .then(({ data }) => {
         setPosts(data ?? [])
       })
-  }, [decodedPref])
+  }, [decodedPref, searchText])
+
+  const toggleSearch = () => {
+    if (showSearch) {
+      setSearchText('')
+    }
+    setShowSearch(!showSearch)
+  }
 
   return (
     <div className="py-8">
@@ -56,6 +73,16 @@ export default function PostsListPage() {
         </h1>
 
         <div className="flex justify-end mb-6 space-x-2">
+          <button
+            onClick={toggleSearch}
+            className={`px-4 py-2 rounded-lg ${
+              showSearch
+                ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            検索
+          </button>
           <button
             onClick={() => setViewMode('list')}
             className={`px-4 py-2 rounded-lg ${
@@ -83,6 +110,18 @@ export default function PostsListPage() {
             新規投稿
           </button>
         </div>
+
+        {showSearch && (
+          <div className="mb-6">
+            <input
+              type="text"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder="キーワードを入力"
+              className="w-full rounded-lg border border-gray-300 p-2"
+            />
+          </div>
+        )}
 
         {posts.length === 0 ? (
           <p className="text-center text-gray-500 py-12">
