@@ -49,11 +49,11 @@ export default function NewPostPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-4 text-black">
+      <h1 className="text-2xl font-semibold mb-4 text-gray-800">
         「{decodedPref}」に新規投稿
       </h1>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <label htmlFor='name' className='block mb-1 font-medium text-black'>
+        <label htmlFor='name' className='block mb-1 font-medium text-gray-700'>
           名前(必須)
         </label>
         <input
@@ -61,9 +61,9 @@ export default function NewPostPage() {
           placeholder="山田 太郎"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
         />
-        <label htmlFor='email' className='block mb-1 font-medium text-black'>
+        <label htmlFor='email' className='block mb-1 font-medium text-gray-700'>
           メールアドレス(必須)
         </label>
         <input
@@ -71,18 +71,18 @@ export default function NewPostPage() {
           placeholder="boysmatching@icloud.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
         />
-        <label htmlFor='email' className='block mb-1 font-medium text-black'>
+        <label htmlFor='email' className='block mb-1 font-medium text-gray-700'>
           プロフィール(必須)
         </label>
         <textarea
           placeholder="170cm 70kg 20歳 (P:16cm)"
           value={profile}
           onChange={(e) => setProfile(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
         />
-        <label htmlFor='title' className='block mb-1 font-medium text-black'>
+        <label htmlFor='title' className='block mb-1 font-medium text-gray-700'>
           題名(必須)
         </label>
         <input
@@ -91,9 +91,9 @@ export default function NewPostPage() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
         />
-        <label htmlFor='Post' className='block mb-1 font-medium text-black'>
+        <label htmlFor='Post' className='block mb-1 font-medium text-gray-700'>
           内容(必須)
         </label>
         <textarea
@@ -101,9 +101,9 @@ export default function NewPostPage() {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           required
-          className="w-full p-2 border rounded h-24"
+          className="w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50 h-24"
         />
-        <label htmlFor='lineId' className='block mb-1 font-medium text-black'>
+        <label htmlFor='lineId' className='block mb-1 font-medium text-gray-700'>
           LINE ID
         </label>
         <input
@@ -111,9 +111,9 @@ export default function NewPostPage() {
           placeholder="line123"
           value={lineId}
           onChange={(e) => setLineId(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
         />
-        <label htmlFor='kakaoId' className='block mb-1 font-medium text-black'>
+        <label htmlFor='kakaoId' className='block mb-1 font-medium text-gray-700'>
           Kakao ID
         </label>
         <input
@@ -121,18 +121,18 @@ export default function NewPostPage() {
           placeholder="kakao123"
           value={kakaoId}
           onChange={(e) => setKakaoId(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
         />
-        <label htmlFor='free' className='block mb-1 font-medium text-black'>
+        <label htmlFor='free' className='block mb-1 font-medium text-gray-700'>
           フリーテキスト
         </label>
         <textarea
           placeholder="自由にご記入ください"
           value={free}
           onChange={(e) => setFree(e.target.value)}
-          className="w-full p-2 border rounded h-24"
+          className="w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50 h-24"
         />
-        <label htmlFor='email' className='block mb-1 font-medium text-black'>
+        <label htmlFor='email' className='block mb-1 font-medium text-gray-700'>
           削除キー(必須)　※投稿の削除に必用なキー設定
         </label>
         <input
@@ -141,7 +141,7 @@ export default function NewPostPage() {
           value={deleteKey}
           onChange={(e) => setDeleteKey(e.target.value)}
           required
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
         />
         <div className="flex space-x-2">
           <button
