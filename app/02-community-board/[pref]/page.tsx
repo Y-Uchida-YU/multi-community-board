@@ -147,12 +147,13 @@ export default function PostsListPage() {
                   onClick={() =>
                     router.push(`/02-community-board/${pref}/post/${post.id}`)
                   }
-                  className="text-left w-full hover:underline"
+                  className="w-full flex justify-between items-start hover:underline text-left"
                 >
                   <span className="text-blue-800">{post.title}</span>
-                  <span className="ml-2 text-sm text-gray-600">
+                  <span className="ml-4 text-sm text-gray-600 text-right">
                     {post.name || '匿名'}
-                    {post.profile ? ` (${post.profile})` : ''} &middot;{' '}
+                    {post.profile ? ` (${post.profile})` : ''}
+                    <br />
                     {new Date(post.insert_datetime).toLocaleString()}
                   </span>
                 </button>
