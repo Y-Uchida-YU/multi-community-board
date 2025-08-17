@@ -82,7 +82,7 @@ export default function MailPage() {
 
   return (
     <main className="p-6 bg-white shadow-lg rounded-xl">
-      <h1 className="text-2xl font-semibold mb-4">
+      <h1 className="text-2xl font-semibold mb-4 text-gray-800">
         メール送信
       </h1>
       <form onSubmit={handleSend} className="space-y-4">
@@ -90,7 +90,7 @@ export default function MailPage() {
           <label className="block text-sm font-medium text-gray-700">
             宛先（匿名表示）
           </label>
-          <p className="mt-1 text-gray-900">{maskedEmail}</p>
+          <p className="mt-1 text-gray-800">{maskedEmail}</p>
         </div>
 
         <div>
@@ -102,7 +102,7 @@ export default function MailPage() {
             type="email"
             value={fromEmail}
             onChange={(e) => { setFromEmail(e.target.value); setErrorMsg('') }}
-            className="mt-1 w-full p-2 border rounded"
+            className="mt-1 w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
             required
           />
         </div>
@@ -116,7 +116,7 @@ export default function MailPage() {
             type="text"
             value={subject}
             onChange={(e) => { setSubject(e.target.value); setErrorMsg('') }}
-            className="mt-1 w-full p-2 border rounded"
+            className="mt-1 w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
             required
           />
         </div>
@@ -130,7 +130,7 @@ export default function MailPage() {
             rows={6}
             value={body}
             onChange={(e) => { setBody(e.target.value); setErrorMsg('') }}
-            className="mt-1 w-full p-2 border rounded"
+            className="mt-1 w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
             required
           />
         </div>
