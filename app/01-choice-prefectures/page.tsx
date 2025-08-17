@@ -2,6 +2,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const REGIONS = [
   {
@@ -51,6 +52,11 @@ const REGIONS = [
 
 export default function ChoicePrefecturesPage() {
   const router = useRouter();
+  const [openRegion, setOpenRegion] = useState<string | null>(null);
+
+  const handlePrefClick = (pref: string) => {
+    router.push(`/02-community-board/${encodeURIComponent(pref)}`);
+  };
 
   return (
     <div>
@@ -67,29 +73,59 @@ export default function ChoicePrefecturesPage() {
           都道府県を選択してください
         </h2>
 
-        {REGIONS.map(region => (
-          <section key={region.name} className="mb-8">
-            <h3 className="text-2xl font-semibold text-blue-600 mb-4">
-              {region.name}
-            </h3>
-            <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-              {region.prefectures.map(pref => (
-                <li key={pref}>
-                  <button
-                    onClick={() =>
-                      router.push(
-                        `/02-community-board/${encodeURIComponent(pref)}`
-                      )
-                    }
-                    className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition"
-                  >
-                    {pref}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+        {/* Mobile accordion */}
+        <div className="md:hidden">
+          {REGIONS.map(region => (
+            <div key={region.name} className="mb-4">
+              <button
+                onClick={() =>
+                  setOpenRegion(openRegion === region.name ? null : region.name)
+                }
+                className="w-full flex justify-between items-center py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow"
+              >
+                <span>{region.name}</span>
+                <span>{openRegion === region.name ? '▲' : '▼'}</span>
+              </button>
+              <ul
+                className={`${openRegion === region.name ? 'block' : 'hidden'} mt-2 grid grid-cols-2 gap-2`}
+              >
+                {region.prefectures.map(pref => (
+                  <li key={pref}>
+                    <button
+                      onClick={() => handlePrefClick(pref)}
+                      className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition"
+                    >
+                      {pref}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop layout */}
+        <div className="hidden md:block">
+          {REGIONS.map(region => (
+            <section key={region.name} className="mb-8">
+              <h3 className="text-2xl font-semibold text-blue-600 mb-4">
+                {region.name}
+              </h3>
+              <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                {region.prefectures.map(pref => (
+                  <li key={pref}>
+                    <button
+                      onClick={() => handlePrefClick(pref)}
+                      className="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition"
+                    >
+                      {pref}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
       </div>
     </div>
   );
