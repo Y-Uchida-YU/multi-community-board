@@ -20,15 +20,22 @@ export default function DeletePostPage() {
       setErrorMsg('削除キーを入力してください');
       return;
     }
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('TBL_T_POSTS')
       .delete()
-      .match({ id: postId, delete_key: key });
+      .match({ id: postId, delete_key: key })
+      .select();
+
     if (error) {
-      setErrorMsg('削除に失敗しました：キーが違う可能性があります');
-    } else {
-      router.push(`/02-community-board/${pref}`);
+      setErrorMsg('削除に失敗しました');
+      return;
     }
+
+    if (!data || data.length === 0) {
+      setErrorMsg('削除キーが一致していないため投稿を削除できません');
+      return;
+    }
+    router.push(`/02-community-board/${pref}`);
   };
 
   return (
