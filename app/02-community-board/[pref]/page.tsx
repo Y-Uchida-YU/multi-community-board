@@ -165,6 +165,18 @@ export default function PostsListPage() {
 
                   <p className="text-gray-800 whitespace-pre-wrap">{post.content}</p>
 
+                  {post.line_id && (
+                    <p className="text-gray-800 mt-2">LINE ID: {post.line_id}</p>
+                  )}
+                  {post.kakao_id && (
+                    <p className="text-gray-800 mt-1">Kakao ID: {post.kakao_id}</p>
+                  )}
+                  {post.free && (
+                    <p className="text-gray-800 whitespace-pre-wrap mt-1">
+                      フリーテキスト: {post.free}
+                    </p>
+                  )}
+
                   <div className="mt-4 flex justify-end">
                     <button
                       onClick={() =>
