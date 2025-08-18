@@ -70,7 +70,9 @@ export default function PostDetailPage() {
           <p className="text-gray-800 mb-1">Kakao ID: {post.kakao_id}</p>
         )}
         {post.free && (
-          <p className="text-gray-800 whitespace-pre-wrap">{post.free}</p>
+          <p className="text-gray-800 whitespace-pre-wrap">
+            フリーテキスト: {post.free}
+          </p>
         )}
       </div>
     </div>
