@@ -68,14 +68,14 @@ export default function PostsListPage() {
           ← 都道府県を選び直す
         </button>
 
-        <h1 className="text-2xl md:text-3xl font-bold text-blue-700 mb-6 text-center">
+        <h1 className="text-xl md:text-3xl font-bold text-blue-700 mb-6 text-center">
           {decodedPref} の掲示板
         </h1>
 
         <div className="flex justify-end mb-6 space-x-2">
           <button
             onClick={toggleSearch}
-            className={`px-4 py-2 rounded-lg ${
+            className={`px-4 py-2 rounded-lg text-sm md:text-base whitespace-nowrap ${
               showSearch
                 ? 'bg-blue-500 hover:bg-blue-600 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -85,7 +85,7 @@ export default function PostsListPage() {
           </button>
           <button
             onClick={() => setViewMode('list')}
-            className={`px-4 py-2 rounded-lg ${
+            className={`px-4 py-2 rounded-lg text-sm md:text-base whitespace-nowrap ${
               viewMode === 'list'
                 ? 'bg-blue-500 hover:bg-blue-600 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -95,7 +95,7 @@ export default function PostsListPage() {
           </button>
           <button
             onClick={() => setViewMode('tree')}
-            className={`px-4 py-2 rounded-lg ${
+            className={`px-4 py-2 rounded-lg text-sm md:text-base whitespace-nowrap ${
               viewMode === 'tree'
                 ? 'bg-blue-500 hover:bg-blue-600 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -105,7 +105,7 @@ export default function PostsListPage() {
           </button>
           <button
             onClick={() => router.push(`/02-community-board/${pref}/01-new`)}
-            className="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition"
+            className="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition text-sm md:text-base whitespace-nowrap"
           >
             新規投稿
           </button>
@@ -137,14 +137,14 @@ export default function PostsListPage() {
                   className="border border-gray-200 rounded-lg p-6 bg-gray-50 hover:bg-gray-100 transition"
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <h2 className="text-lg sm:text-xl font-semibold text-blue-800">
+                    <h2 className="text-base sm:text-lg font-semibold text-blue-800">
                       {post.title}
                     </h2>
                     <button
                       onClick={() =>
                         router.push(`/02-community-board/${pref}/03-mail/${post.id}`)
                       }
-                      className="flex items-center px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full text-sm"
+                      className="flex items-center px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full text-xs sm:text-sm whitespace-nowrap"
                       aria-label="メール送信"
                     >
                       <span className="mr-1">📧</span>
@@ -182,7 +182,7 @@ export default function PostsListPage() {
                       onClick={() =>
                         router.push(`/02-community-board/${pref}/02-delete/${post.id}`)
                       }
-                      className="px-4 py-1 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+                      className="px-4 py-1 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs sm:text-sm whitespace-nowrap"
                     >
                       削除
                     </button>
@@ -215,7 +215,7 @@ export default function PostsListPage() {
                     }
                     className="w-full flex justify-between items-start hover:underline text-left"
                   >
-                    <span className="text-sm sm:text-base text-blue-800">{post.title}</span>
+                    <span className="text-xs sm:text-sm text-blue-800">{post.title}</span>
                     <span className="ml-4 text-sm text-gray-600 text-right">
                       {post.name || '匿名'}
                       {post.profile ? ` (${post.profile})` : ''}
