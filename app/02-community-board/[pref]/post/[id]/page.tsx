@@ -55,7 +55,7 @@ export default function PostDetailPage() {
           ← 投稿一覧に戻る
         </button>
 
-        <h1 className="text-2xl font-bold text-blue-700 mb-4">{post.title}</h1>
+        <h1 className="text-xl md:text-2xl font-bold text-blue-700 mb-4">{post.title}</h1>
         <div className="text-sm text-gray-600 mb-4">
           {post.name || '匿名'} &middot; {new Date(post.insert_datetime).toLocaleString()}
         </div>

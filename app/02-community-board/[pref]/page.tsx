@@ -68,7 +68,7 @@ export default function PostsListPage() {
           ← 都道府県を選び直す
         </button>
 
-        <h1 className="text-3xl font-bold text-blue-700 mb-6 text-center">
+        <h1 className="text-2xl md:text-3xl font-bold text-blue-700 mb-6 text-center">
           {decodedPref} の掲示板
         </h1>
 
@@ -137,7 +137,7 @@ export default function PostsListPage() {
                   className="border border-gray-200 rounded-lg p-6 bg-gray-50 hover:bg-gray-100 transition"
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <h2 className="text-xl font-semibold text-blue-800">
+                    <h2 className="text-lg sm:text-xl font-semibold text-blue-800">
                       {post.title}
                     </h2>
                     <button
@@ -203,7 +203,7 @@ export default function PostsListPage() {
                     }
                     className="w-full flex justify-between items-start hover:underline text-left"
                   >
-                    <span className="text-blue-800">{post.title}</span>
+                    <span className="text-sm sm:text-base text-blue-800">{post.title}</span>
                     <span className="ml-4 text-sm text-gray-600 text-right">
                       {post.name || '匿名'}
                       {post.profile ? ` (${post.profile})` : ''}

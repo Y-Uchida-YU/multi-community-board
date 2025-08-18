@@ -49,7 +49,7 @@ export default function NewPostPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-4 text-gray-800">
+      <h1 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
         「{decodedPref}」に新規投稿
       </h1>
       <form onSubmit={handleSubmit} className="space-y-4">
