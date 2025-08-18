@@ -62,14 +62,14 @@ export default function ChoicePrefecturesPage() {
     <div>
       <div className="bg-white shadow-lg rounded-xl p-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-blue-700 mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-blue-700 mb-4">
             Boys Matching
           </h1>
-          <p className="text-lg text-gray-700">
+          <p className="text-base md:text-lg text-gray-700">
             当サイトはゲイの出会いを目的としています。皆様に素敵な出会いがありますように
           </p>
         </div>
-        <h2 className="text-3xl font-bold text-blue-700 mb-8 text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-blue-700 mb-8 text-center">
           都道府県を選択してください
         </h2>
 
@@ -108,7 +108,7 @@ export default function ChoicePrefecturesPage() {
         <div className="hidden md:block">
           {REGIONS.map(region => (
             <section key={region.name} className="mb-8">
-              <h3 className="text-2xl font-semibold text-blue-600 mb-4">
+              <h3 className="text-xl md:text-2xl font-semibold text-blue-600 mb-4">
                 {region.name}
               </h3>
               <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">

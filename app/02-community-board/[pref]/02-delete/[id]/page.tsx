@@ -40,7 +40,7 @@ export default function DeletePostPage() {
 
   return (
     <main className="p-6 bg-white shadow-lg rounded-xl">
-      <h1 className="text-2xl font-semibold mb-4">
+      <h1 className="text-xl md:text-2xl font-semibold mb-4">
         「{decodedPref}」の投稿削除
       </h1>
       <form onSubmit={handleDelete} className="space-y-4">

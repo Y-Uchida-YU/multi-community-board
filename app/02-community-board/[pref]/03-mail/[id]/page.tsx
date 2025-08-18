@@ -82,7 +82,7 @@ export default function MailPage() {
 
   return (
     <main className="p-6 bg-white shadow-lg rounded-xl">
-      <h1 className="text-2xl font-semibold mb-4 text-gray-800">
+      <h1 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
         メール送信
       </h1>
       <form onSubmit={handleSend} className="space-y-4">
