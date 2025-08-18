@@ -31,25 +31,46 @@ export default function PostsListPage() {
   const [viewMode, setViewMode] = useState<'list' | 'tree'>('list')
   const [showSearch, setShowSearch] = useState(false)
   const [searchText, setSearchText] = useState('')
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+  const [totalCount, setTotalCount] = useState(0)
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize))
 
   useEffect(() => {
-    let query = supabase
-      .from('TBL_T_POSTS') // ← ジェネリックを外しました
-      .select('*')
-      .eq('prefecture', decodedPref)
+    const fetchPosts = async () => {
+      let query = supabase
+        .from('TBL_T_POSTS')
+        .select('*', { count: 'exact' })
+        .eq('prefecture', decodedPref)
 
-    if (searchText) {
-      query = query.or(
-        `title.ilike.%${searchText}%,content.ilike.%${searchText}%`
-      )
+      if (searchText) {
+        query = query.or(
+          `title.ilike.%${searchText}%,content.ilike.%${searchText}%`
+        )
+      }
+
+      const from = (page - 1) * pageSize
+      const to = from + pageSize - 1
+
+      const { data, count } = await query
+        .order('insert_datetime', { ascending: false })
+        .range(from, to)
+
+      setPosts(data ?? [])
+      setTotalCount(count ?? 0)
     }
 
-    query
-      .order('insert_datetime', { ascending: false })
-      .then(({ data }) => {
-        setPosts(data ?? [])
-      })
-  }, [decodedPref, searchText])
+    fetchPosts()
+  }, [decodedPref, searchText, page, pageSize])
+
+  useEffect(() => {
+    setPageSize(viewMode === 'list' ? 10 : 25)
+    setPage(1)
+  }, [viewMode])
+
+  useEffect(() => {
+    setPage(1)
+  }, [searchText])
 
   const toggleSearch = () => {
     if (showSearch) {
@@ -122,6 +143,26 @@ export default function PostsListPage() {
             />
           </div>
         )}
+
+        <div className="flex justify-end mb-4 items-center space-x-2">
+          <label htmlFor="pageSize" className="text-sm">
+            表示件数
+          </label>
+          <select
+            id="pageSize"
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value))
+              setPage(1)
+            }}
+            className="border rounded p-1 text-sm"
+          >
+            <option value={10}>10件</option>
+            <option value={25}>25件</option>
+            <option value={50}>50件</option>
+            <option value={100}>100件</option>
+          </select>
+        </div>
 
         {posts.length === 0 ? (
           <p className="text-center text-gray-500 py-12">
@@ -237,6 +278,36 @@ export default function PostsListPage() {
               return items
             })}
           </ul>
+        )}
+
+        {posts.length > 0 && (
+          <div className="flex justify-between items-center mt-6">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className={`px-3 py-1 rounded ${
+                page === 1
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  : 'bg-blue-500 hover:bg-blue-600 text-white'
+              }`}
+            >
+              前へ
+            </button>
+            <span className="text-sm">
+              {page} / {totalPages}
+            </span>
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className={`px-3 py-1 rounded ${
+                page === totalPages
+                  ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  : 'bg-blue-500 hover:bg-blue-600 text-white'
+              }`}
+            >
+              次へ
+            </button>
+          </div>
         )}
       </div>
     </div>
