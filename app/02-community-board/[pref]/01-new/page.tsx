@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { supabase } from '../../../../lib/supabaseClient';
 
 export default function NewPostPage() {
@@ -18,11 +18,57 @@ export default function NewPostPage() {
   const [kakaoId, setKakaoId] = useState('');
   const [free, setFree] = useState('');
   const [deleteKey, setDeleteKey] = useState('');
+  const [captcha, setCaptcha] = useState('');
+  const [captchaInput, setCaptchaInput] = useState('');
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const generateCaptcha = () => {
+    const newCaptcha = Math.floor(10000 + Math.random() * 90000).toString();
+    setCaptcha(newCaptcha);
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#f0f0f0';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < 5; i++) {
+          ctx.strokeStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+          ctx.beginPath();
+          ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+          ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+          ctx.stroke();
+        }
+        ctx.font = '24px sans-serif';
+        for (let i = 0; i < newCaptcha.length; i++) {
+          const char = newCaptcha[i];
+          const x = 10 + i * 20 + Math.random() * 5;
+          const y = 25 + Math.random() * 5;
+          const angle = ((Math.random() * 30) - 15) * (Math.PI / 180);
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(angle);
+          ctx.fillStyle = 'black';
+          ctx.fillText(char, 0, 0);
+          ctx.restore();
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    generateCaptcha();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim() || !content.trim() || !deleteKey.trim()) {
-      alert('題名・内容・削除キーは必須です');
+    if (!title.trim() || !content.trim() || !deleteKey.trim() || !captchaInput.trim()) {
+      alert('題名・内容・削除キー・認証キーは必須です');
+      return;
+    }
+    if (captchaInput !== captcha) {
+      alert('認証キーが正しくありません');
+      generateCaptcha();
       return;
     }
     const { error } = await supabase
@@ -142,6 +188,26 @@ export default function NewPostPage() {
           onChange={(e) => setDeleteKey(e.target.value)}
           required
           className="w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50"
+        />
+        <label htmlFor='captcha' className='block mb-1 font-medium text-gray-700'>
+          認証キー(必須)
+        </label>
+        <div className='flex items-center space-x-2'>
+          <canvas ref={canvasRef} width={120} height={40} className='border bg-white' />
+          <button
+            type='button'
+            onClick={generateCaptcha}
+            className='px-2 py-1 bg-gray-200 text-gray-700 rounded'
+          >
+            再生成
+          </button>
+        </div>
+        <input
+          type='text'
+          value={captchaInput}
+          onChange={(e) => setCaptchaInput(e.target.value)}
+          required
+          className='w-full p-2 border border-gray-300 rounded text-gray-700 bg-gray-50'
         />
         <div className="flex space-x-2">
           <button
