@@ -93,10 +93,10 @@ export default function PostsListPage() {
           {decodedPref} の掲示板
         </h1>
 
-        <div className="flex justify-end mb-6 space-x-2">
+        <div className="flex flex-wrap justify-end gap-2 mb-6">
           <button
             onClick={toggleSearch}
-            className={`px-4 py-2 rounded-lg text-sm md:text-base whitespace-nowrap ${
+            className={`px-2 py-1 rounded-lg text-xs md:text-sm whitespace-nowrap ${
               showSearch
                 ? 'bg-blue-500 hover:bg-blue-600 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -106,7 +106,7 @@ export default function PostsListPage() {
           </button>
           <button
             onClick={() => setViewMode('list')}
-            className={`px-4 py-2 rounded-lg text-sm md:text-base whitespace-nowrap ${
+            className={`px-2 py-1 rounded-lg text-xs md:text-sm whitespace-nowrap ${
               viewMode === 'list'
                 ? 'bg-blue-500 hover:bg-blue-600 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -116,7 +116,7 @@ export default function PostsListPage() {
           </button>
           <button
             onClick={() => setViewMode('tree')}
-            className={`px-4 py-2 rounded-lg text-sm md:text-base whitespace-nowrap ${
+            className={`px-2 py-1 rounded-lg text-xs md:text-sm whitespace-nowrap ${
               viewMode === 'tree'
                 ? 'bg-blue-500 hover:bg-blue-600 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -126,7 +126,7 @@ export default function PostsListPage() {
           </button>
           <button
             onClick={() => router.push(`/02-community-board/${pref}/01-new`)}
-            className="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition text-sm md:text-base whitespace-nowrap"
+            className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition text-xs md:text-sm whitespace-nowrap"
           >
             新規投稿
           </button>
@@ -185,7 +185,7 @@ export default function PostsListPage() {
                       onClick={() =>
                         router.push(`/02-community-board/${pref}/03-mail/${post.id}`)
                       }
-                      className="flex items-center px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full text-xs sm:text-sm whitespace-nowrap"
+                      className="flex items-center px-2 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full text-xs whitespace-nowrap"
                       aria-label="メール送信"
                     >
                       <span className="mr-1">📧</span>
@@ -223,7 +223,7 @@ export default function PostsListPage() {
                       onClick={() =>
                         router.push(`/02-community-board/${pref}/02-delete/${post.id}`)
                       }
-                      className="px-4 py-1 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs sm:text-sm whitespace-nowrap"
+                      className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs whitespace-nowrap"
                     >
                       削除
                     </button>
