@@ -16,14 +16,22 @@ export async function sendMail({ from, to, subject, body }: SendParams) {
     throw new Error('MAIL_PROVIDER が mailersend に設定されていません')
   }
 
+  if (!process.env.MAILERSEND_API_KEY) {
+    throw new Error('MAILERSEND_API_KEY が設定されていません')
+  }
+
+  if (!process.env.MAILERSEND_FROM_EMAIL || !process.env.MAILERSEND_FROM_NAME) {
+    throw new Error('MAILERSEND_FROM_EMAIL または MAILERSEND_FROM_NAME が設定されていません')
+  }
+
   const ms = new MailerSend({
-    apiKey: process.env.MAILERSEND_API_KEY!,
+    apiKey: process.env.MAILERSEND_API_KEY,
   })
 
   // 送信元（システム既定）
   const sender = new Sender(
-    process.env.MAILERSEND_FROM_EMAIL!,
-    process.env.MAILERSEND_FROM_NAME!,
+    process.env.MAILERSEND_FROM_EMAIL,
+    process.env.MAILERSEND_FROM_NAME,
   )
 
   // 宛先
