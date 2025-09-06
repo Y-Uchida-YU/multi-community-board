@@ -1,7 +1,5 @@
 // lib/mailClient.ts
 
-console.log('📨 MAILERSEND_API_KEY:', process.env.MAILERSEND_API_KEY?.slice(0,10) + '…')
-
 import { MailerSend, EmailParams, Sender, Recipient } from 'mailersend'
 
 type SendParams = {
@@ -11,7 +9,18 @@ type SendParams = {
   body: string
 }
 
+function logMailSettings() {
+  console.log('[mailClient:config]', {
+    MAIL_PROVIDER: process.env.MAIL_PROVIDER,
+    MAILERSEND_API_KEY: process.env.MAILERSEND_API_KEY,
+    MAILERSEND_FROM_EMAIL: process.env.MAILERSEND_FROM_EMAIL,
+    MAILERSEND_FROM_NAME: process.env.MAILERSEND_FROM_NAME,
+  })
+}
+
 export async function sendMail({ from, to, subject, body }: SendParams) {
+  logMailSettings()
+  console.log('[mailClient:params]', { from, to, subject, body })
   if (process.env.MAIL_PROVIDER !== 'mailersend') {
     throw new Error('MAIL_PROVIDER が mailersend に設定されていません')
   }
