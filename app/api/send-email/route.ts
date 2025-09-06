@@ -2,13 +2,28 @@
 
 import { NextResponse } from 'next/server'
 import { sendMail } from '../../../lib/mailClient'
+import { supabase } from '../../../lib/supabaseClient'
 
 export async function POST(request: Request) {
-  const { from, to, subject, body } = await request.json()
-  console.log('[send-email]', { from, to, subject, body })
+  const { from, subject, body, postId } = await request.json()
+  console.log('[send-email]', { from, postId, subject, body })
+
+  const { data, error } = await supabase
+    .from('TBL_T_POSTS')
+    .select('email')
+    .eq('id', postId)
+    .single()
+
+  if (error || !data?.email) {
+    console.error('Recipient email fetch error:', error)
+    return NextResponse.json(
+      { error: '宛先メールアドレスが取得できませんでした' },
+      { status: 400 }
+    )
+  }
 
   try {
-    await sendMail({ from, to, subject, body })
+    await sendMail({ from, to: data.email, subject, body })
     return NextResponse.json({ success: true })
   } catch (err: unknown) {
     console.error('Mail send error:', err)
