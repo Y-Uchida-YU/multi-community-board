@@ -21,7 +21,6 @@ export default function MailPage() {
   const router = useRouter()
 
   const [maskedEmail, setMaskedEmail] = useState('Loading...')
-  const [realEmail, setRealEmail]     = useState('')
   const [fromEmail, setFromEmail]     = useState('')
   const [subject, setSubject]         = useState('')
   const [body, setBody]               = useState('')
@@ -38,7 +37,6 @@ export default function MailPage() {
         if (error || !data?.email) {
           setMaskedEmail('不明')
         } else {
-          setRealEmail(data.email)
           setMaskedEmail(maskEmail(data.email))
         }
       })
@@ -64,7 +62,7 @@ export default function MailPage() {
       const res = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ from: fromEmail, to: realEmail, subject, body })
+        body: JSON.stringify({ from: fromEmail, subject, body, postId })
       })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error || '送信に失敗しました')
