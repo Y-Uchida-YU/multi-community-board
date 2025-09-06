@@ -15,7 +15,9 @@ export async function POST(request: Request) {
     const errorMessage =
       err instanceof Error
         ? err.message
-        : 'メール送信中に予期しないエラーが発生しました'
+        : typeof err === 'object' && err && 'message' in err
+          ? String((err as { message?: unknown }).message)
+          : 'メール送信中に予期しないエラーが発生しました'
     return NextResponse.json({ error: errorMessage }, { status: 500 })
   }
 }
