@@ -29,9 +29,6 @@ export async function POST(request: Request) {
   } catch (err: unknown) {
     console.error('Mail send error:', err, {
       MAIL_PROVIDER: process.env.MAIL_PROVIDER,
-      MAILERSEND_API_KEY: process.env.MAILERSEND_API_KEY,
-      MAILERSEND_FROM_EMAIL: process.env.MAILERSEND_FROM_EMAIL,
-      MAILERSEND_FROM_NAME: process.env.MAILERSEND_FROM_NAME,
     })
     const errorMessage =
       err instanceof Error
