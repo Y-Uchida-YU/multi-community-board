@@ -5,8 +5,8 @@ import { sendMail } from '../../../lib/mailClient'
 import { supabase } from '../../../lib/supabaseClient'
 
 export async function POST(request: Request) {
-  const { from, subject, body, postId } = await request.json()
-  console.log('[send-email]', { from, postId, subject, body })
+  const { from: replyTo, subject, body, postId } = await request.json()
+  console.log('[send-email]', { replyTo, postId, subject, body })
 
   const { data, error } = await supabase
     .from('TBL_T_POSTS')
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
   try {
     console.log('[send-email] recipient', data.email)
-    await sendMail({ from, to: data.email, subject, body })
+    await sendMail({ to: data.email, subject, body, replyTo })
     return NextResponse.json({ success: true })
   } catch (err: unknown) {
     console.error('Mail send error:', err, {

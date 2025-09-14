@@ -3,10 +3,10 @@
 import { MailerSend, EmailParams, Sender, Recipient } from 'mailersend'
 
 type SendParams = {
-  from: string
   to: string
   subject: string
   body: string
+  replyTo?: string
 }
 
 function logMailSettings() {
@@ -18,9 +18,9 @@ function logMailSettings() {
   })
 }
 
-export async function sendMail({ from, to, subject, body }: SendParams) {
+export async function sendMail({ to, subject, body, replyTo }: SendParams) {
   logMailSettings()
-  console.log('[mailClient:params]', { from, to, subject, body })
+  console.log('[mailClient:params]', { to, subject, body, replyTo })
   if (process.env.MAIL_PROVIDER !== 'mailersend') {
     throw new Error('MAIL_PROVIDER が mailersend に設定されていません')
   }
@@ -46,15 +46,17 @@ export async function sendMail({ from, to, subject, body }: SendParams) {
   // 宛先
   const toList = [ new Recipient(to) ]
 
-  // Reply-To にユーザー入力のメールアドレスを設定
-  const replyTo = new Recipient(from)
-
-  const emailParams = new EmailParams()
+  // メールパラメータの組み立て
+  let emailParams = new EmailParams()
     .setFrom(sender)
     .setTo(toList)
     .setSubject(subject)
     .setText(body)
-    .setReplyTo(replyTo)
+
+  // Reply-To にユーザー入力のメールアドレスを設定
+  if (replyTo) {
+    emailParams = emailParams.setReplyTo(new Recipient(replyTo))
+  }
 
   // ← 注意：ここを .email.send に変える
   await ms.email.send(emailParams)
