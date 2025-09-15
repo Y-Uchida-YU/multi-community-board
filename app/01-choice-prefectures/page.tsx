@@ -24,7 +24,7 @@ const REGIONS = [
   },
   {
     name: '東京',
-    prefectures: ['東京都'],
+    prefectures: ['池袋', '新宿', '渋谷/品川', '都心', '区東部', '都下'],
   },
   {
     name: '関東',
